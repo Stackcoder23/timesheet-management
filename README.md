@@ -16,21 +16,29 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Deployed on Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Project Setup
 
-To learn more about Next.js, take a look at the following resources:
+- Make sure you have **Node.js** and **npm** installed.
+- Install dependencies with `npm install`.
+- Environment variables should be placed in a `.env.local` file if needed.
+- Use `npm run build` to create a production build.
+- Linting can be run with `npm run lint`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- This project uses the Next.js **App Router** (`/app` directory) instead of the traditional `/pages` directory.
+- All routes and layouts are defined in the `/app` folder.
+- Reusable UI components are stored in `/components`.
+- Styles are located in `/styles` or as CSS modules within components.
+- Static assets are placed in `/public`.
 
-## Deploy on Vercel
+## Assumptions
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- The project is a timesheet management application for tracking work hours and related data.
+- User authentication and data persistence may be handled via API routes or external services.
+- The project is set up for deployment on Vercel.
+- The codebase is designed to be modular and scalable, using the latest features of Next.js and React.

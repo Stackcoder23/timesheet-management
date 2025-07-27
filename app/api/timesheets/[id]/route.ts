@@ -3,9 +3,9 @@ import { timesheetEntries } from "@/lib/mock-data";
 
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
-  const { id } = context.params;
+  const { id } = await context.params;
   const entry = timesheetEntries.find((e) => e.id === id);
   if (entry) {
     return NextResponse.json(entry);
@@ -15,11 +15,12 @@ export async function GET(
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     const body = await request.json();
     const { date, timesheetEntry } = body;
+    const { id } = await context.params;
 
     if (!date || !timesheetEntry) {
       return NextResponse.json(
@@ -39,7 +40,7 @@ export async function POST(
       );
     }
 
-    const entryIndex = timesheetEntries.findIndex((e) => e.id === params.id);
+    const entryIndex = timesheetEntries.findIndex((e) => e.id === id);
     if (entryIndex === -1) {
       return NextResponse.json(
         { message: "Timesheet not found" },
@@ -76,12 +77,13 @@ export async function POST(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     const { searchParams } = new URL(request.url);
     const date = searchParams.get("date");
     const entryIndex = searchParams.get("entryIndex");
+    const { id } = await context.params;
 
     if (!date || entryIndex === null) {
       return NextResponse.json(
@@ -99,7 +101,7 @@ export async function DELETE(
     }
 
     const timesheetIndex = timesheetEntries.findIndex(
-      (e) => e.id === params.id
+      (e) => e.id === id
     );
     if (timesheetIndex === -1) {
       return NextResponse.json(
@@ -146,11 +148,12 @@ export async function DELETE(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     const body = await request.json();
     const { date, entryIndex, updatedEntry } = body;
+    const { id } = await context.params;
 
     if (!date || entryIndex === undefined || !updatedEntry) {
       return NextResponse.json(
@@ -178,7 +181,7 @@ export async function PUT(
     }
 
     const timesheetIndex = timesheetEntries.findIndex(
-      (e) => e.id === params.id
+      (e) => e.id === id
     );
     if (timesheetIndex === -1) {
       return NextResponse.json(

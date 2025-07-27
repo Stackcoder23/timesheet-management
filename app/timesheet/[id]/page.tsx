@@ -4,7 +4,7 @@ import Skeleton from "@/components/ui/skeleton";
 import { getTimesheetById } from "@/lib/api";
 import { Suspense } from "react";
 
-export default async function Timesheet({ params }: { params: { id: string } }) {
+export default async function Timesheet({ params }: any) {
   const timesheet = await getTimesheetById(params.id);
 
   return (

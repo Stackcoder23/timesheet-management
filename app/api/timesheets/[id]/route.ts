@@ -1,11 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { timesheetEntries } from "@/lib/mock-data";
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  context: { params: { id: string } }
 ) {
-  const entry = timesheetEntries.find((e) => e.id === params.id);
+  const { id } = context.params;
+  const entry = timesheetEntries.find((e) => e.id === id);
   if (entry) {
     return NextResponse.json(entry);
   }
